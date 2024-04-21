@@ -149,3 +149,14 @@ svg{
   }
   
  
+  .chat-logo{
+    height: 50px;
+    width: 50px;
+    background-color: #F77CA6;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 10px;
+}

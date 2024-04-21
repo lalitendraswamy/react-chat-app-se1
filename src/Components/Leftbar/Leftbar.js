@@ -6,7 +6,7 @@ export default class Leftbar extends Component {
     return (
       <div className='leftbar'>
         <div className='d-flex p-3 align-items-center'>
-            <div className='left-logo'>RR</div>
+            <div className='left-logo'>LS</div>
             <div >
                 <h1>Lalitendra Swamy</h1>
                 <p>Full stack Developer</p>

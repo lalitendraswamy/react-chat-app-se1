@@ -1,7 +1,8 @@
-// Chat.js
-
 import React, { Component } from 'react';
-import '../style.css'; // Import your CSS file
+
+import { Picker } from 'emoji-mart';
+
+import '../style.css'; 
 
 const user_list = ["Alan", "Bob", "Carol", "Dean", "Elin"];
 
@@ -11,11 +12,12 @@ class Chat extends Component {
     this.state = {
       messages: [],
       inputMessage: '',
+      showEmojiPicker:false
     };
   }
 
   handleSendMessage = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault(); 
     const { inputMessage } = this.state;
     if (inputMessage.trim()) {
       const randomUser = user_list[Math.floor(Math.random() * user_list.length)];
@@ -37,8 +39,19 @@ class Chat extends Component {
     this.setState({ messages: updatedMessages });
   };
 
+  handleEmojiSelect = (emoji) => {
+    this.setState((prevState) => ({
+      inputMessage: prevState.inputMessage + emoji.native,
+      showEmojiPicker: false,
+    }));
+  };
+
+  toggleEmojiPicker = () => {
+    this.setState((prevState) => ({ showEmojiPicker: !prevState.showEmojiPicker }));
+  };
+
   render() {
-    const { messages, inputMessage } = this.state;
+    const { messages, inputMessage,showEmojiPicker } = this.state;
 
     return (
       <div className="chat">
@@ -59,7 +72,11 @@ class Chat extends Component {
         <div className="chat-content">
           {messages.map((message, index) => (
             <div key={index} className="message">
-              <h3 className="username">{message.user}:</h3><br/>
+                <div className='d-flex align-items-center mb-1'>
+                <div className='chat-logo'>{message.user[0]}</div>
+              <h3 className="username">{message.user}:</h3>
+              </div><br/>
+                
               <h4 className="text">{message.text}</h4>
               <button onClick={() => this.handleLike(index)}>❤️ {message.likes}</button>
             </div>
@@ -72,7 +89,12 @@ class Chat extends Component {
               value={inputMessage}
               onChange={(e) => this.setState({ inputMessage: e.target.value })}
             />
+
+       
+          {showEmojiPicker && <Picker onSelect={this.handleEmojiSelect} />}
+
           </form>
+         
         </div>
       </div>
     );
